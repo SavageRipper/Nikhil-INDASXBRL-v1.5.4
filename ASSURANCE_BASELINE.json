@@ -1,0 +1,152 @@
+{
+ "note": "Assurance harness ceilings (v1.2, measured 2026-10-09). v1.1 recorded the counts of the live v1 code; the v12 rules of v1.2 bring every count to 0 except 'made' (mistakes the sweep could make) and 'locked' (read-only cells, which may change with the rules). assurance.test.mjs fails if any count grows (a regression) and, since v1.2, requires the targets (0) strictly. 'notTypable' counts imported zeros the tool keeps under a Yes/No 'No' answer (reference instance B: its OCI zeros, accepted by the MCA validator) \u2014 they cannot be typed on screen by design and are excluded from the re-key counts. The golden XML files themselves are kept out of the repository. v1.5 (2026-10-09): reference instance C (2024-25) standalone and consolidated added. 'knownDataErrors' lists rules an instance's own data breaks (consolidated reference instance C: shareholders' percentages above 100%, SR-L663-1) \u2014 reported on re-key, counted in the ceilings and excluded from the targets.",
+ "instances": {
+  "golden-ref-b-2024-25.xml": {
+   "rekey": {
+    "rank": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "reverse": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "random": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "notTypable": 10
+   },
+   "mistakes": {
+    "n": 60,
+    "seed": 11,
+    "made": 44,
+    "unreachable": 0,
+    "notRestored": 0,
+    "restoreRefused": 0
+   },
+   "lockedCells": {
+    "locked": 194,
+    "wrong": 0,
+    "lockedEmpty": 0
+   }
+  },
+  "golden-ref-a-2022-23.xml": {
+   "rekey": {
+    "rank": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "reverse": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "random": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "notTypable": 0
+   },
+   "mistakes": {
+    "n": 60,
+    "seed": 11,
+    "made": 42,
+    "unreachable": 0,
+    "notRestored": 0,
+    "restoreRefused": 0
+   },
+   "lockedCells": {
+    "locked": 913,
+    "wrong": 0,
+    "lockedEmpty": 0
+   }
+  },
+  "golden-ref-c-standalone-2024-25.xml": {
+   "rekey": {
+    "rank": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "reverse": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "random": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 0
+    },
+    "notTypable": 0
+   },
+   "mistakes": {
+    "n": 60,
+    "seed": 11,
+    "made": 35,
+    "unreachable": 0,
+    "notRestored": 0,
+    "restoreRefused": 0
+   },
+   "lockedCells": {
+    "locked": 2377,
+    "wrong": 0,
+    "lockedEmpty": 0
+   }
+  },
+  "golden-ref-c-consolidated-2024-25.xml": {
+   "rekey": {
+    "rank": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 1
+    },
+    "reverse": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 1
+    },
+    "random": {
+     "differing": 0,
+     "extra": 0,
+     "noCell": 0,
+     "errors": 1
+    },
+    "notTypable": 0
+   },
+   "mistakes": {
+    "n": 60,
+    "seed": 11,
+    "made": 38,
+    "unreachable": 0,
+    "notRestored": 0,
+    "restoreRefused": 0
+   },
+   "lockedCells": {
+    "locked": 2372,
+    "wrong": 0,
+    "lockedEmpty": 0
+   },
+   "knownDataErrors": [
+    "SR-L663-1"
+   ]
+  }
+ }
+}
