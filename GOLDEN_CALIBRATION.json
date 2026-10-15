@@ -1,0 +1,145 @@
+{
+ "note": "Calibration of the rule engine against MCA-validated instance documents (golden-*.xml). Each entry names a Business Rules V1.2 requirement that an MCA-validated instance does not meet; the requirement stays visible but is reported as a WARNING instead of a blocking error. Only explicit workbook requirements contradicted by validated evidence are listed here; interpretation fixes are made in the engine and documented in AUDIT_REPORT.md. Since v1.2 an entry for a plain 'mandatory field' rule (since v1.5 also an 'assert' rule) may carry 'whenNilOrAbsent': the rule is a warning only for a year in which that element is absent, nil or 0, and stays blocking otherwise. Since v1.5.4 an entry with 'oneRow': true works the other way round: it adds an element the MCA validator requires beyond the workbook's mandatory line items, for at least one row (member) of the table per year — severity ERROR is blocking, WARNING is reported.",
+ "entries": [
+  {
+   "rule": "ML-44",
+   "concept": "DateOfBirthOfKeyManagerialPersonnelOrDirector",
+   "severity": "WARNING",
+   "evidence": "golden-ref-a-2022-23.xml (MCA-validated, FY 2022-23): KMP rows A, B, C report every other ML-44 element but no date of birth"
+  },
+  {
+   "rule": "ML-45",
+   "concept": "TurnoverOfHighestContributingProductOrService",
+   "severity": "WARNING",
+   "evidence": "golden-ref-a-2022-23.xml (MCA-validated, FY 2022-23): principal product rows A, B report every other ML-45 element but not the turnover of the highest contributing product"
+  },
+  {
+   "rule": "SR-L1097-1",
+   "concept": "WhetherPropertyPlantAndEquipmentAreStatedAtRevaluedAmount",
+   "severity": "WARNING",
+   "whenNilOrAbsent": "PropertyPlantAndEquipment",
+   "evidence": "golden-ref-b-2024-25.xml (MCA-validated, FY 2024-25): property, plant and equipment reported as 0 for both years and no note; the revaluation flag is not reported",
+   "decision": "release owner, 2026-10-09 (v1.2): a warning only while the balance is nil or absent; blocking whenever it is reported with an amount"
+  },
+  {
+   "rule": "SR-L1304-1",
+   "concept": "WhetherOtherIntangibleAssetsAreStatedAtRevaluedAmount",
+   "severity": "WARNING",
+   "whenNilOrAbsent": "OtherIntangibleAssets",
+   "evidence": "golden-ref-b-2024-25.xml (MCA-validated, FY 2024-25): other intangible assets reported as 0 for both years and no note; the revaluation flag is not reported",
+   "decision": "release owner, 2026-10-09 (v1.2): a warning only while the balance is nil or absent; blocking whenever it is reported with an amount"
+  },
+  {
+   "rule": "SR-L1678-1",
+   "concept": "OtherCurrentAssetsOthers",
+   "severity": "WARNING",
+   "whenNilOrAbsent": "OtherCurrentAssetsOthers",
+   "evidence": "golden-ref-c-standalone-2024-25.xml / golden-ref-c-consolidated-2024-25.xml (MCA-validated, FY 2024-25): the details table of other current assets, others reports amounts while the note figure OtherCurrentAssetsOthers is 0 (both years); accepted",
+   "decision": "release owner's v1.2 principle for SR-L1097-1 / SR-L1304-1 applied (v1.5): a warning only while the note figure is nil or 0; blocking whenever it is reported with an amount"
+  },
+  {
+   "rule": "SR-L1590-1",
+   "concept": "OtherNoncurrentAssetsOthers",
+   "severity": "WARNING",
+   "whenNilOrAbsent": "OtherNoncurrentAssetsOthers",
+   "evidence": "golden-ref-c-standalone-2024-25.xml / golden-ref-c-consolidated-2024-25.xml (MCA-validated, FY 2024-25): the details table of other non-current assets, others reports amounts while the note figure OtherNoncurrentAssetsOthers is 0 (both years); accepted",
+   "decision": "release owner's v1.2 principle for SR-L1097-1 / SR-L1304-1 applied (v1.5): a warning only while the note figure is nil or 0; blocking whenever it is reported with an amount"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "CurrentAssetsOfSubsidiary",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "NoncurrentAssetsOfSubsidiary",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "CurrentLiabilitiesOfSubsidiary",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "NoncurrentLiabilitiesOfSubsidiary",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "RevenueOfSubsidiary",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "ComprehensiveIncomeOfSubsidiary",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "ProportionOfOwnershipInterestsHeldByNoncontrollingInterests",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "ProportionOfVotingRightsHeldByNoncontrollingInterests",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "ProfitLossAttributableToNoncontrollingInterests",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "NoncontrollingInterestsOfSubsidiary",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "DividendsPaidToNoncontrollingInterests",
+   "oneRow": true,
+   "severity": "ERROR",
+   "evidence": "MCA validator on a next-year consolidated filing (FY 2025-26) prepared with v1.5.3: \"All mandatory elements for table DisclosureOfDetailsOfSubsidiariesTable must be present for atleast one context as on 2026-03-31\". Every ML-105 element was reported for the current year; the previous-year column, taken from the MCA-validated filing, passed and also reported this element (0). golden-ref-c-standalone-2024-25.xml and golden-ref-c-consolidated-2024-25.xml (MCA-validated) report it for both years.",
+   "decision": "release owner, 2026-10-15 (v1.5.4): blocking, for at least one subsidiary per year"
+  },
+  {
+   "rule": "ML-105",
+   "concept": "DescriptionOfReasonWhyUsingDifferentReportingDateOrPeriodForSubsidiary",
+   "oneRow": true,
+   "severity": "WARNING",
+   "evidence": "Reported by the MCA-validated golden-ref-c-consolidated-2024-25.xml (\"-\") and by the previous-year column that passed in the case above, but not by the MCA-validated golden-ref-c-standalone-2024-25.xml: not proven mandatory, so a warning only.",
+   "decision": "v1.5.4: a warning, for at least one subsidiary per year"
+  }
+ ]
+}
